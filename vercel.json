@@ -8,12 +8,8 @@
     ],
     "functions": {
       "api/index.js": {
-        "memory": 3009,
-        "maxDuration": 30
-      },
-      "api/*.js": {
-        "memory": 3009,
-        "maxDuration": 30
+        "maxDuration": 30,
+        "memory": 1024 
       }
     }
   }
