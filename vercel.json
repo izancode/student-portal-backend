@@ -1,10 +1,20 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] , "functions": {
-    "api/index.js": {
-      "memory": 3009,
-      "maxDuration": 30
-    },
-    "api/*.js": {
-      "memory": 3009,
-      "maxDuration": 30
+{
+    "version": 2,
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/api"
+      }
+    ],
+    "functions": {
+      "api/index.js": {
+        "memory": 3009,
+        "maxDuration": 30
+      },
+      "api/*.js": {
+        "memory": 3009,
+        "maxDuration": 30
+      }
     }
-  }}
+  }
+  
