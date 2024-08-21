@@ -1,10 +1,10 @@
-import express from "express";
-const app = express();
+import app from "../app.js";
+import connectDatabase from "../config/database.js";
+import dotenv from "dotenv";
 
-app.get("/", (req, res) =>
-  res.send("Express faizan  on Vercel la la la vicenbzo")
-);
+dotenv.config({ path: "./config/config.env" });
+connectDatabase();
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
-
-export default app;
+app.listen(process.env.PORT, () => {
+  console.log(process.env.PORT);
+});
