@@ -24,7 +24,7 @@ const studentSchema = new Schema(
     },
     student_profile_image: {
       type: String,
-      required: [true, "Please enter your student profile image"],
+      required: [true, "Please Upload your student profile image"],
     },
 
     student_first_name: {
