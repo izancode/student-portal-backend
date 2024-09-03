@@ -5,7 +5,11 @@ import path from "path";
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req, file) => {
-    const folderPath = "student-portal-app/student-profile";
+    console.log(req.originalUrl);
+    const folderPath =
+      req.originalUrl === "/api/v1/studentusers"
+        ? "student-portal-app/student-profile"
+        : "student-portal-app/faculty-profile";
     const fileExtension = path.extname(file.originalname).substring(1);
     const publicId = `${file.fieldname}-${
       req.body.student_first_name +

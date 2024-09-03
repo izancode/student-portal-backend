@@ -26,3 +26,4 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
 - For Upload File Using Cloudinary, Multer , multer-storage-cloudinary
 - Setting Image Format in cloudinary Like width hight size and many more
 - Created Common Cloudinary and multer file
+- Make Post Api For Faculty Same as same Student Signin Api
