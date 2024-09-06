@@ -1,20 +1,20 @@
-import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
 import path from "path";
 
-export const multerValidation = (error) => {
-  return error;
-};
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./config/config.env" });
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req, file) => {
-    // console.log("Multer req  comes", req);
-    // console.log("Multer file comes", file);
-
-    if (multerValidation) return;
-
     const folderPath =
       req.originalUrl === "/api/v1/studentusers"
         ? "student-portal-app/student-profile"
