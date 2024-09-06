@@ -27,3 +27,4 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
 - Setting Image Format in cloudinary Like width hight size and many more
 - Created Common Cloudinary and multer file
 - Created Post Api For Faculty Signin Form Same as same Student Signin Api
+- Solved One issue about cloudinary that when field validation is not perfect still image are uploading in cloudinary so make a validation if try catch catches a error then code will return from multer.js

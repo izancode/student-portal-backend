@@ -1,5 +1,6 @@
 import facultyModel from "../models/facultyModels.js";
 import { cloudinaryUploadedImageUrl } from "../utils/cloudinary.js";
+import { multerValidation } from "../middlewares/multer.js";
 
 export const signInFaculty = async (req, res) => {
   try {
@@ -10,7 +11,7 @@ export const signInFaculty = async (req, res) => {
     console.log(faculty);
     res.status(200).json(faculty);
   } catch (error) {
-    console.log(error);
+    multerValidation(error);
     res.status(500).json({ message: error });
   }
 };

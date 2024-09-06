@@ -2,10 +2,19 @@ import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import path from "path";
+
+export const multerValidation = (error) => {
+  return error;
+};
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req, file) => {
-    console.log(req.originalUrl);
+    // console.log("Multer req  comes", req);
+    // console.log("Multer file comes", file);
+
+    if (multerValidation) return;
+
     const folderPath =
       req.originalUrl === "/api/v1/studentusers"
         ? "student-portal-app/student-profile"

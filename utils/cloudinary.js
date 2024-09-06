@@ -21,7 +21,6 @@ export const cloudinaryUploadedImageUrl = async (req) => {
       format: "png",
     });
 
-    console.log("optimizeUrl : ", optimizedUrl);
     fileUrl = optimizedUrl;
   }
 
