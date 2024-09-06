@@ -9,6 +9,7 @@ export const signInStudent = async (req, res) => {
     const student = await studentModel.create(studentData);
     res.status(200).json(student);
   } catch (error) {
+    console.error('Error occurred:', error);
     res.status(500).json({ message: error.errorResponse });
   }
 };
