@@ -11,6 +11,6 @@ export const signInFaculty = async (req, res) => {
     res.status(200).json(faculty);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.errorResponse });
+    res.status(500).json({ message: error });
   }
 };
