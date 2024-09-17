@@ -4,60 +4,61 @@ const facultySchema = new Schema(
   {
     faculty_id: {
       type: String,
-      required: [true, "Please enter your faculty school"],
+      required: [true, "Please enter your faculty id"],
     },
     department: {
       type: String,
-      required: [true, "Please enter your faculty programs"],
+      required: [true, "Please enter your faculty department"],
     },
     designation_position: {
       type: String,
-      required: [true, "Please enter your faculty degree"],
+      required: [true, "Please enter your faculty designation position"],
     },
     qualification: {
       type: String,
-      required: [true, "Please enter your faculty specialisation"],
+      required: [true, "Please enter your faculty qualification"],
     },
     experience_in_year: {
       type: String,
-      required: [true, "Please enter your faculty how did you hear about us"],
+      required: [true, "Please enter your faculty experience in year"],
     },
     courses_subjects_taught: {
       type: String,
-      required: [true, "Please Upload your faculty profile image"],
+      required: [true, "Please enter your faculty courses subjects taught"],
     },
 
     faculty_profile_image: {
       type: String,
-      required: [true, "Please enter your first name"],
+      // required: [true, "Please Upload your faculty profile image"],
+      required: false,
     },
     faculty_first_name: {
       type: String,
-      required: [true, "Please enter your middle name"],
+      required: [true, "Please enter your faculty first name"],
     },
     faculty_middle_name: {
       type: String,
-      required: [true, "Please enter your last name"],
+      required: [true, "Please enter your faculty middle name"],
     },
     faculty_last_name: {
       type: String,
-      required: [true, "Please enter your nationality"],
+      required: [true, "Please enter your faculty last name"],
     },
     faculty_nationality: {
       type: String,
-      required: [true, "Please enter your address"],
+      required: [true, "Please enter your nationality"],
     },
     faculty_address: {
       type: String,
-      required: [true, "Please enter your apartment"],
+      required: [true, "Please enter your address"],
     },
     faculty_apartment: {
       type: String,
-      required: [true, "Please enter your country"],
+      required: [true, "Please enter your apartment"],
     },
     faculty_country: {
       type: String,
-      required: [true, "Please enter your state"],
+      required: [true, "Please enter your country"],
     },
     faculty_state: {
       type: String,
@@ -65,7 +66,7 @@ const facultySchema = new Schema(
     },
     faculty_city: {
       type: String,
-      required: [true, "Please enter your city"],
+      required: [true, "Please enter your City"],
     },
     faculty_postal_code: {
       type: Number,

@@ -1,8 +1,9 @@
 import express from "express";
+import upload from "../middlewares/multer.js";
 import { signInFaculty } from "../controllers/facultyController.js";
-import { multerUpload } from "../middlewares/multer.js";
+
 const router = express.Router();
 router
   .route("/facultyusers")
-  .post(multerUpload.single("faculty_profile_image"), signInFaculty);
+  .post(upload.single("faculty_profile_image"), signInFaculty);
 export default router;

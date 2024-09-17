@@ -1,15 +1,28 @@
 import facultyModel from "../models/facultyModels.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
+import ErrorHandler from "../utils/errorHandler.js";
 
-export const signInFaculty = async (req, res) => {
+export const signInFaculty = async (req, res, next) => {
   try {
-    const fileUrl = req.file.path;
-
-    const facultyData = { ...req.body, faculty_profile_image: fileUrl };
+    const facultyData = { ...req.body };
     const faculty = await facultyModel.create(facultyData);
 
-    res.status(200).json(faculty);
+    if (faculty && req.file) {
+      const facultyId = faculty._id;
+      const imageUrl = await uploadToCloudinary(req.body, req.file, "faculty");
+      facultyModel
+        .findByIdAndUpdate(facultyId, { faculty_profile_image: imageUrl.url })
+        .then((response) => {
+          faculty.faculty_profile_image = imageUrl.url;
+          res.status(200).json(faculty);
+        })
+        .catch((updateError) => {
+          res.status(200).json("coming from here with profile field", faculty);
+        });
+    } else {
+      return next(new ErrorHandler("Image is not Uploaded by Server", 422));
+    }
   } catch (error) {
-    console.error("Error occurred:", error);
-    res.status(500).json({ message: error.errorResponse });
+    return next(error);
   }
 };
