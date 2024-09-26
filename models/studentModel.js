@@ -264,6 +264,8 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Please enter your statement of purpose"],
     },
+    otp: { type: String, default: null },
+    otpExpiry: { type: Date, default: null },
   },
   {
     timestamps: true,
