@@ -28,9 +28,9 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
 - Created Common Cloudinary and multer file
 - Created Post Api For Faculty Signin Form Same as same Student Signin Api
 - Solved One issue about cloudinary that when field validation is not perfect still image are uploading in cloudinary so make a validation if try catch catches a error then code will return from multer.js
--Error When Pushing to vercel
+  -Error When Pushing to vercel
 - if data is not inserted into database because of any error but the image is uploaded so i solved this issue checking from controller if data is inserted into database then cloudinary function work and then upadted the student_profile cloudinary url into the field in the database
-- after fighting all this error now i  just make a login api so student or faculty ke easily login to the portal i have just make like first user have type their phone number or email id
-then he/she get otp code into email i also tried to get otp via sms with the help of twilio but unfortunately it doesn't work for unpaid so i decided to stick with email its doesn't matter user entering email or phone number otp will to their email only sending email functionality i used nodemailer it very famous easy to use.
--
-
+- after fighting all this error now i just make a login api so student or faculty ke easily login to the portal i have just make like first user have type their phone number or email id
+  then he/she get otp code into email i also tried to get otp via sms with the help of twilio but unfortunately it doesn't work for unpaid so i decided to stick with email its doesn't matter user entering email or phone number otp will to their email only sending email functionality i used nodemailer it very famous easy to use.
+- "solving nodmailer error not sending mail on vercel" this commit now the issue is solved now on deployment phase otp mail is coming now proper i just want add await before
+  await senderService(user, otp, otpExpiry); without await code goes to second line that why mail is not coming properly
