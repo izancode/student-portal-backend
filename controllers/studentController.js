@@ -51,7 +51,7 @@ export const logInStudent = async (req, res, next) => {
       lowerCaseAlphabets: false,
     });
     // const otpExpiry = Date.now() + 2 * 60 * 1000;
-    const otpExpiry = Date.now() + 60000;
+    const otpExpiry = Date.now() + 2 * 60 * 1000;
     user.otp = otp;
     user.otpExpiry = otpExpiry;
     await user.save();
@@ -77,11 +77,11 @@ export const logInStudentVerifyOtp = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({
         status: false,
-        message: "User not found.",
+        message: "Sorry! Student not found.",
       });
     }
 
-    if (Date.now() > user.otpExpiry) {
+    if (Date.now() > user.otpExpiry && user.otp === login_verify_otp) {
       return res.status(400).json({
         status: false,
         message: "Your OTP has expired. Please request a new one",
