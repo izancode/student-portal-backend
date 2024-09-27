@@ -59,7 +59,7 @@ export const logInStudent = async (req, res, next) => {
     await senderService(user, otp, otpExpiry);
     res.status(200).json({
       status: true,
-      message: `OTP has been sent to your emai-id ${user.student_email + otp}`,
+      message: `OTP has been sent to your emai-id ${user.student_email}`,
       identifier: user.student_email,
     });
   } catch (error) {
