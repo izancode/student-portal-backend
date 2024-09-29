@@ -14,7 +14,10 @@ export const signInFaculty = async (req, res, next) => {
         .findByIdAndUpdate(facultyId, { faculty_profile_image: imageUrl.url })
         .then((response) => {
           faculty.faculty_profile_image = imageUrl.url;
-          res.status(200).json(faculty);
+          res.status(200).json({
+            status: true,
+            message: "Faculty has been registered successfully",
+          });
         })
         .catch((updateError) => {
           res.status(200).json("coming from here with profile field", faculty);
