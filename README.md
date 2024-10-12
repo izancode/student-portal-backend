@@ -34,3 +34,4 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
   then he/she get otp code into email i also tried to get otp via sms with the help of twilio but unfortunately it doesn't work for unpaid so i decided to stick with email its doesn't matter user entering email or phone number otp will to their email only sending email functionality i used nodemailer it very famous easy to use.
 - "solving nodmailer error not sending mail on vercel" this commit now the issue is solved now on deployment phase otp mail is coming now proper i just want add await before
   await senderService(user, otp, otpExpiry); without await code goes to second line that why mail is not coming properly
+  - testing
