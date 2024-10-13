@@ -208,6 +208,7 @@ const studentSchema = new Schema(
     student_father_number: {
       type: String,
       required: [true, "Please enter your student father number"],
+      unique: true,
       validate: {
         validator: function (value) {
           return /^\d{10}$/.test(value); // Assuming a 10-digit phone number
@@ -218,6 +219,7 @@ const studentSchema = new Schema(
     student_father_email: {
       type: String,
       required: [true, "Please enter your student father email"],
+      unique: true,
       validate: {
         validator: function (value) {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); // Simple email regex
@@ -236,6 +238,7 @@ const studentSchema = new Schema(
     student_mother_number: {
       type: String,
       required: [true, "Please enter your student mother number"],
+      unique: true,
       validate: {
         validator: function (value) {
           return /^\d{10}$/.test(value); // Assuming a 10-digit phone number
@@ -246,6 +249,7 @@ const studentSchema = new Schema(
     student_mother_email: {
       type: String,
       required: [true, "Please enter your student mother email"],
+      unique: true,
       validate: {
         validator: function (value) {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); // Simple email regex
@@ -264,8 +268,6 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Please enter your statement of purpose"],
     },
-    otp: { type: String, default: null },
-    otpExpiry: { type: Date, default: null },
   },
   {
     timestamps: true,

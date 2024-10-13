@@ -28,12 +28,12 @@ export const senderService = async (user, otp, otpExpiry) => {
     const templatePath = path.join(__dirname, "../html-mailer/otp.ejs");
     const mailHTML = await ejs.renderFile(templatePath, {
       otp: otp,
-      name: user.student_first_name,
+      name: user.name,
     });
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: user.student_email,
+      to: user.email,
       subject,
       html: mailHTML,
     });

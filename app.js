@@ -4,6 +4,8 @@ import errorMiddleware from "./middlewares/Error.js";
 import homeRoute from "./routes/homeRouts.js";
 import studentRoute from "./routes/studentRoute.js";
 import facultyRoute from "./routes/facultyRoute.js";
+import userRoute from "./routes/userRoute.js";
+import cookieParser from "cookie-parser";
 const app = express();
 app.use(
   cors({
@@ -13,10 +15,12 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", homeRoute);
 app.use("/api/v1", studentRoute);
 app.use("/api/v1", facultyRoute);
+app.use("/api/v1", userRoute);
 app.use(errorMiddleware);
 
 export default app;
