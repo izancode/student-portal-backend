@@ -6,35 +6,36 @@ import ErrorHandler from "../utils/errorHandler.js";
 export const signInStudent = async (req, res, next) => {
   try {
     const studentData = { ...req.body };
-    // console.log(studentData);
-    const student = await studentModel.create(studentData);
-    const user = await userModel.create([
-      {
-        name:
-          studentData.student_first_name +
-          " " +
-          studentData.student_middle_name +
-          " " +
-          studentData.student_last_name,
-        email: studentData.student_email,
-        phone_number: studentData.student_phone_number,
-        role: "student",
-      },
-      {
-        name: studentData.student_father_name,
-        email: studentData.student_father_email,
-        phone_number: studentData.student_father_number,
-        role: "parents",
-      },
-      {
-        name: studentData.student_mother_name,
-        email: studentData.student_mother_email,
-        phone_number: studentData.student_mother_number,
-        role: "parents",
-      },
-    ]);
 
-    console.log("user here", user);
+    const student = await studentModel.create(studentData);
+
+    if (student) {
+      await userModel.create([
+        {
+          name:
+            studentData.student_first_name +
+            " " +
+            studentData.student_middle_name +
+            " " +
+            studentData.student_last_name,
+          email: studentData.student_email,
+          phone_number: studentData.student_phone_number,
+          role: "student",
+        },
+        {
+          name: studentData.student_father_name,
+          email: studentData.student_father_email,
+          phone_number: studentData.student_father_number,
+          role: "parents",
+        },
+        {
+          name: studentData.student_mother_name,
+          email: studentData.student_mother_email,
+          phone_number: studentData.student_mother_number,
+          role: "parents",
+        },
+      ]);
+    }
     if (student && req.file) {
       const studentId = student._id;
 
