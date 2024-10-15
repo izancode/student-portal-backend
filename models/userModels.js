@@ -18,8 +18,7 @@ const userSchema = new Schema({
 
   role: {
     type: String,
-    required: [true, "Please enter your email"],
-    unique: true,
+    required: [true, "Please enter your role"],
   },
 
   otp: { type: String, default: null },

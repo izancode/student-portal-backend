@@ -6,8 +6,9 @@ import ErrorHandler from "../utils/errorHandler.js";
 export const signInStudent = async (req, res, next) => {
   try {
     const studentData = { ...req.body };
-    console.log(studentData);
-    await userModel.create(
+    // console.log(studentData);
+    const student = await studentModel.create(studentData);
+    const user = await userModel.create([
       {
         name:
           studentData.student_first_name +
@@ -30,10 +31,10 @@ export const signInStudent = async (req, res, next) => {
         email: studentData.student_mother_email,
         phone_number: studentData.student_mother_number,
         role: "parents",
-      }
-    );
+      },
+    ]);
 
-    const student = await studentModel.create(studentData);
+    console.log("user here", user);
     if (student && req.file) {
       const studentId = student._id;
 
@@ -54,6 +55,7 @@ export const signInStudent = async (req, res, next) => {
       return next(new ErrorHandler("Image is not Uploaded by Server", 422));
     }
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };
