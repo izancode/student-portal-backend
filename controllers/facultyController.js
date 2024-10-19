@@ -8,17 +8,23 @@ export const signInFaculty = async (req, res, next) => {
     const facultyData = { ...req.body };
     const faculty = await facultyModel.create(facultyData);
     if (faculty) {
-      await userModel.create({
-        name:
-          facultyData.faculty_first_name +
-          " " +
-          facultyData.faculty_middle_name +
-          " " +
-          facultyData.faculty_last_name,
-        email: facultyData.faculty_email,
-        phone_number: facultyData.faculty_phone_number,
-        role: "faculty",
-      });
+      try {
+        await userModel.create({
+          name:
+            facultyData.faculty_first_name +
+            " " +
+            facultyData.faculty_middle_name +
+            " " +
+            facultyData.faculty_last_name,
+          email: facultyData.faculty_email,
+          phone_number: facultyData.faculty_phone_number,
+          role: "faculty",
+        });
+      } catch (error) {
+        // If user creation fails, delete the faculty record
+        await facultyModel.findByIdAndDelete(faculty._id);
+        return next(error);
+      }
     }
     if (faculty && req.file) {
       const facultyId = faculty._id;
