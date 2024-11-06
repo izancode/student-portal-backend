@@ -21,7 +21,6 @@ export const signInFaculty = async (req, res, next) => {
           role: "faculty",
         });
       } catch (error) {
-        // If user creation fails, delete the faculty record
         await facultyModel.findByIdAndDelete(faculty._id);
         return next(error);
       }
