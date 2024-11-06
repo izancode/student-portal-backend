@@ -4,6 +4,7 @@ import { senderService } from "../utils/senderService.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import otpGenerator from "otp-generator";
 import jwt from "jsonwebtoken";
+
 export const userLogIn = async (req, res, next) => {
   const { login_with_email_phone } = req.body;
 
@@ -72,6 +73,8 @@ export const userLogInVerifyOtp = async (req, res, next) => {
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
+      sameSite: "None",
+      secure: process.env.NODE_ENV === "production",
     };
     return res.status(200).cookie("token", token, options).json({
       status: true,
