@@ -40,7 +40,9 @@ export const userLogIn = async (req, res, next) => {
     return next(error);
   }
 };
-
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("Cookies expire day:", process.env.COOKIE_EXPIRE);
+console.log("secure", process.env.NODE_ENV === "production");
 export const userLogInVerifyOtp = async (req, res, next) => {
   try {
     const { finding_with_email, login_verify_otp } = req.body;
@@ -72,7 +74,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       expires: new Date(
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
-      httpOnly: process.env.NODE_ENV === "production",
+      httpOnly: true,
       sameSite: "None",
       secure: process.env.NODE_ENV === "production",
     };
