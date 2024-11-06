@@ -72,7 +72,8 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       expires: new Date(
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
-
+      httpOnly: process.env.NODE_ENV === "production",
+      sameSite: "None",
       secure: process.env.NODE_ENV === "production",
     };
     return res.status(200).cookie("token", token, options).json({
