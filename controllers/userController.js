@@ -77,7 +77,6 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       httpOnly: true,
       sameSite: "None",
       secure: process.env.NODE_ENV === "production",
-      domain: ".vercel.app",
     };
     return res.status(200).cookie("token", token, options).json({
       status: true,
