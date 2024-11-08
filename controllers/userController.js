@@ -71,9 +71,10 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       expiresIn: process.env.JWT_EXPIRE,
     });
     const options = {
-      expires: new Date(
-        Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-      ),
+      // expires: new Date(
+      //   Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      // ),
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
       httpOnly: true,
       sameSite: "None",
       secure: process.env.NODE_ENV === "production",
