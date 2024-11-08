@@ -78,7 +78,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       sameSite: "None",
       secure: process.env.NODE_ENV === "production",
     };
-    return res.status(200).cookie("token", "test", options).json({
+    return res.status(200).cookie("token", "t", options).json({
       status: true,
       message: "Login successful! Welcome to the portal",
       token: token,
