@@ -75,15 +75,15 @@ export const userLogInVerifyOtp = async (req, res, next) => {
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
-      // sameSite: "None",
-      // secure: process.env.NODE_ENV === "production",
+      sameSite: "None", // Required for cross-origin
+      secure: false, // Should be true in production (with HTTPS)
+      path: "/",
     };
     return res.status(200).cookie("token", token, options).json({
       status: true,
       message: "Login successful! Welcome to the portal",
       token: token,
     });
-    
   } catch (error) {
     return next(error);
   }
