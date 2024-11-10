@@ -40,9 +40,7 @@ export const userLogIn = async (req, res, next) => {
     return next(error);
   }
 };
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Cookies expire day:", process.env.COOKIE_EXPIRE);
-console.log("secure", process.env.NODE_ENV === "production");
+
 export const userLogInVerifyOtp = async (req, res, next) => {
   try {
     const { finding_with_email, login_verify_otp } = req.body;
@@ -78,7 +76,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       sameSite: "None",
       secure: process.env.NODE_ENV === "production",
     };
-    return res.status(200).cookie("token", token, options).json({
+    return res.status(200).json({
       status: true,
       message: "Login successful! Welcome to the portal",
       token: token,
