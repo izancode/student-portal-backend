@@ -12,13 +12,13 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    // origin: (origin, callback) => {
-    //   if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error("Not allowed by CORS"), false);
-    //   }
-    // },
+    origin: (origin, callback) => {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"), false);
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
