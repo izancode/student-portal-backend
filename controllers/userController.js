@@ -68,14 +68,14 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
-    const options = {
-      expires: new Date(
-        Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-      ),
-      httpOnly: true,
-      sameSite: "None",
-      secure: process.env.NODE_ENV === "production",
-    };
+    // const options = {
+    //   expires: new Date(
+    //     Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    //   ),
+    //   httpOnly: true,
+    //   sameSite: "None",
+    //   secure: process.env.NODE_ENV === "production",
+    // };
     return res.status(200).json({
       status: true,
       message: "Login successful! Welcome to the portal",
