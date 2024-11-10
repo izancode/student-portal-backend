@@ -79,7 +79,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: "Login successful! Welcome to the portal",
-      token: "test",
+      token: token,
     });
   } catch (error) {
     return next(error);
