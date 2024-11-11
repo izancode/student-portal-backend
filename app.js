@@ -7,8 +7,8 @@ import facultyRoute from "./routes/facultyRoute.js";
 import userRoute from "./routes/userRoute.js";
 const app = express();
 const allowedOrigins = [
-  "http://localhost:5173", // Local development frontend
-  "https://student-portal-frontend-phi.vercel.app", // Live frontend
+  "http://localhost:5173",
+  "https://student-portal-frontend-phi.vercel.app",
 ];
 app.use(
   cors({

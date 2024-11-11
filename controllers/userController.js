@@ -40,7 +40,7 @@ export const userLogIn = async (req, res, next) => {
     return next(error);
   }
 };
-
+console.log("secure : ", process.env.NODE_ENV === "production");
 export const userLogInVerifyOtp = async (req, res, next) => {
   try {
     const { finding_with_email, login_verify_otp } = req.body;
@@ -68,15 +68,14 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
-    // const options = {
-    //   expires: new Date(
-    //     Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-    //   ),
-    //   httpOnly: true,
-    //   sameSite: "None",
-    //   secure: process.env.NODE_ENV === "production",
-    // };
-    return res.status(200).json({
+
+    const options = {
+      expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    };
+    return res.status(200).cookie("token", token, options).json({
       status: true,
       message: "Login successful! Welcome to the portal",
       token: token,
