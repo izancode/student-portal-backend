@@ -4,7 +4,7 @@ import {
   userLogIn,
   userLogInVerifyOtp,
   userLogOut,
-} from "../controllers/userController.js";
+} from "../controllers/userLoginController.js";
 const router = express.Router();
 
 router.route("/userlogin").post(userLogIn);

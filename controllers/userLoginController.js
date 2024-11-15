@@ -40,7 +40,7 @@ export const userLogIn = async (req, res, next) => {
     return next(error);
   }
 };
-console.log("secure : ", process.env.NODE_ENV === "production");
+
 export const userLogInVerifyOtp = async (req, res, next) => {
   try {
     const { finding_with_email, login_verify_otp } = req.body;
@@ -68,7 +68,6 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
-
     const options = {
       expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
       httpOnly: true,
@@ -90,6 +89,8 @@ export const userLogOut = async (req, res, next) => {
     res.cookie("token", null, {
       expires: new Date(Date.now()),
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
     res.status(200).json({
       status: true,
