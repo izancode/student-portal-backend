@@ -10,6 +10,8 @@ export const signInFaculty = async (req, res, next) => {
     if (faculty) {
       try {
         await userModel.create({
+          userId: faculty._id,
+
           name:
             facultyData.faculty_first_name +
             " " +

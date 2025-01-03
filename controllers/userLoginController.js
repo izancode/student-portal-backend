@@ -65,7 +65,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     user.otpExpiry = null;
     await user.save();
 
-    const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.userId }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
     const options = {

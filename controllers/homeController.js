@@ -1,3 +1,3 @@
 export const home = async (req, res) => {
-  res.send("<h1>Working</h1>");
+  res.send("<h1>WOrking</h1>");
 };

@@ -6,6 +6,7 @@ import homeRoute from "./routes/homeRouts.js";
 import studentRoute from "./routes/studentRoute.js";
 import facultyRoute from "./routes/facultyRoute.js";
 import userLoginRoute from "./routes/userLoginRoute.js";
+import userSingleRoute from "./routes/userSingleRoute.js";
 const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
@@ -31,6 +32,7 @@ app.use("/", homeRoute);
 app.use("/api/v1", studentRoute);
 app.use("/api/v1", facultyRoute);
 app.use("/api/v1", userLoginRoute);
+app.use("/api/v1", userSingleRoute);
 app.use(errorMiddleware);
 
 export default app;

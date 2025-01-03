@@ -8,10 +8,10 @@ export const signInStudent = async (req, res, next) => {
     const studentData = { ...req.body };
 
     const student = await studentModel.create(studentData);
-
     if (student) {
       await userModel.create([
         {
+          userId: student._id,
           name:
             studentData.student_first_name +
             " " +
@@ -23,12 +23,14 @@ export const signInStudent = async (req, res, next) => {
           role: "student",
         },
         {
+          userId: student._id,
           name: studentData.student_father_name,
           email: studentData.student_father_email,
           phone_number: studentData.student_father_number,
           role: "parents",
         },
         {
+          userId: student._id,
           name: studentData.student_mother_name,
           email: studentData.student_mother_email,
           phone_number: studentData.student_mother_number,
