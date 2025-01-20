@@ -9,6 +9,7 @@ import userLoginRoute from "./routes/userLoginRoute.js";
 import userSingleRoute from "./routes/userSingleRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
 const app = express();
+app.set("trust proxy", 1);
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
@@ -20,7 +21,7 @@ app.use(
       if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"), true);
+        callback(new Error("Not allowed by CORS"), false);
       }
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
