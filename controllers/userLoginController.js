@@ -46,7 +46,10 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     const { finding_with_email, login_verify_otp } = req.body;
 
     const user = await userModel.findOne({
-      email: finding_with_email,
+      $or: [
+        { email: finding_with_email },
+        { phone_number: finding_with_email },
+      ],
     });
     if (!user) {
       return next(new ErrorHandler("Sorry! User not found.", 404));
@@ -64,10 +67,13 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     user.otp = null;
     user.otpExpiry = null;
     await user.save();
-
-    const token = jwt.sign({ id: user.userId }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
+    const token = jwt.sign(
+      { id: user.userId, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRE,
+      }
+    );
     const options = {
       expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
       httpOnly: true,

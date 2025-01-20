@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import studentModel from "../models/studentModel.js";
 import facultyModel from "../models/facultyModels.js";
 
-export const singleUser = async (req, res, next) => {
+export const userUpdate = async (req, res, next) => {
   try {
     const { token } = req.cookies;
 
