@@ -10,8 +10,8 @@ import userSingleRoute from "./routes/userSingleRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
 const app = express();
 const allowedOrigins = [
-  "http://localhost:5173",
   "https://student-portal-frontend-phi.vercel.app",
+  "http://localhost:5173",
 ];
 app.use(
   cors({
