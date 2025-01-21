@@ -79,6 +79,8 @@ export const userLogInVerifyOtp = async (req, res, next) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
+      domain: "https://student-portal-api.vercel.app",
+      path: "/",
     };
     return res.status(200).cookie("token", token, options).json({
       status: true,
