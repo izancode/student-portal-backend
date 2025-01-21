@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import allowCors from "./middlewares/cors.js";
 import errorMiddleware from "./middlewares/Error.js";
 import homeRoute from "./routes/homeRouts.js";
 import studentRoute from "./routes/studentRoute.js";
@@ -9,7 +10,10 @@ import userLoginRoute from "./routes/userLoginRoute.js";
 import userSingleRoute from "./routes/userSingleRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
 const app = express();
-const allowedOrigins = ["https://student-portal-frontend-phi.vercel.app"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://student-portal-frontend-phi.vercel.app",
+];
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -26,6 +30,7 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use("/api/v1", allowCors);
 app.use("/", homeRoute);
 app.use("/api/v1", studentRoute);
 app.use("/api/v1", facultyRoute);
