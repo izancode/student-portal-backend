@@ -76,7 +76,7 @@ export const userLogInVerifyOtp = async (req, res, next) => {
     );
     const options = {
       expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "None",
     };
