@@ -9,10 +9,7 @@ import userLoginRoute from "./routes/userLoginRoute.js";
 import userSingleRoute from "./routes/userSingleRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
 const app = express();
-const allowedOrigins = [
-  "https://student-portal-frontend-phi.vercel.app",
-  "http://localhost:5173",
-];
+const allowedOrigins = ["https://student-portal-frontend-phi.vercel.app"];
 app.use(
   cors({
     origin: (origin, callback) => {
