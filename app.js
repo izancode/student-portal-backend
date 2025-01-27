@@ -9,6 +9,7 @@ import facultyRoute from "./routes/facultyRoute.js";
 import userLoginRoute from "./routes/userLoginRoute.js";
 import userSingleRoute from "./routes/userSingleRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
+import checkTokenRoute from "./routes/checkTokenRoute.js";
 const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
@@ -30,13 +31,14 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-// app.use("/api/v1", allowCors);
+
 app.use("/", homeRoute);
 app.use("/api/v1", studentRoute);
 app.use("/api/v1", facultyRoute);
 app.use("/api/v1", userLoginRoute);
 app.use("/api/v1", userSingleRoute);
 app.use("/api/v1", userUpdateRoute);
+app.use("/api/v1", checkTokenRoute);
 app.use(errorMiddleware);
 
 export default app;

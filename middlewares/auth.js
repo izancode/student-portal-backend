@@ -5,7 +5,7 @@ import userModel from "../models/userModels.js";
 export const isAuthenticatedUser = async (req, res, next) => {
   try {
     const { token } = req.cookies;
-   
+
     if (!token) {
       return next(
         new ErrorHandler("Please Login to access this resource", 401)
@@ -13,7 +13,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
     }
 
     const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
-   
+
     req.user = await userModel.findOne({ userId: decodeToken.id });
 
     next();
@@ -23,9 +23,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
 };
 
 export const authorizeRoles = (...roles) => {
-  // console.log(roles);
   return (req, res, next) => {
-    // console.log("authorizeRoles", res);
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHandler(

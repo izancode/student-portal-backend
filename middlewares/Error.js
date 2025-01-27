@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 const errorMiddleware = (err, req, res, next) => {
-  // console.log("coning from error.js : ", err);
   err.message = err.message || "Internal Server Error";
   err.statusCode = err.statusCode || 500;
+
   if (err.code === 11000) {
     let key = Object.keys(err.keyValue)[0];
     key = key.replace(/_/g, " ");
@@ -25,7 +25,7 @@ const errorMiddleware = (err, req, res, next) => {
     }
   }
   res.status(err.statusCode).json({
-    success: false,
+    status: false,
     message: err.message,
   });
 };

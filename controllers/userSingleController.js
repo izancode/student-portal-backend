@@ -17,6 +17,7 @@ export const singleUser = async (req, res, next) => {
       message: "User details fetched successfully",
     });
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };
