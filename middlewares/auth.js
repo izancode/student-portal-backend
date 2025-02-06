@@ -14,7 +14,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
 
     const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await userModel.findOne({ userId: decodeToken.id });
+    req.user = await userModel.findOne({ _id: decodeToken.id });
 
     next();
   } catch (error) {

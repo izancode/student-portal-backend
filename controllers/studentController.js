@@ -46,13 +46,15 @@ export const signInStudent = async (req, res, next) => {
       studentModel
         .findByIdAndUpdate(studentId, {
           student_profile_image: imageUrl.secure_url,
+          image_public_id: imageUrl.public_id,
         })
         .then((response) => {
           student.student_profile_image = imageUrl.secure_url;
-          res.status(200).json({
-            status: true,
-            message: "Student has been registered successfully",
-          });
+          (student.image_public_id = imageUrl.public_id),
+            res.status(200).json({
+              status: true,
+              message: "Student has been registered successfully",
+            });
         })
         .catch((updateError) => {
           res.status(200).json("coming from here with profile field", student);

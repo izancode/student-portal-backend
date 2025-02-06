@@ -27,6 +27,11 @@ const studentSchema = new Schema(
       // required: [true, "Please Upload your student profile image"],
       required: false,
     },
+    image_public_id: {
+      type: String,
+      // required: [true, "Please Upload your student profile image"],
+      required: false,
+    },
 
     student_first_name: {
       type: String,
@@ -65,11 +70,11 @@ const studentSchema = new Schema(
       required: [true, "Please enter your city"],
     },
     student_postal_code: {
-      type: Number,
+      type: String,
       required: [true, "Please enter your postal code"],
       validate: {
         validator: function (value) {
-          return Number.isInteger(value) && value > 0;
+          return /^[A-Za-z0-9\s]+$/.test(value);
         },
         message: "Postal code must be a positive integer",
       },
@@ -97,14 +102,8 @@ const studentSchema = new Schema(
       },
     },
     dob: {
-      type: Date,
+      type: String,
       required: [true, "Please enter your Date of Birth"],
-      validate: {
-        validator: function (value) {
-          return value instanceof Date && !isNaN(value.getTime());
-        },
-        message: "Invalid Date of Birth",
-      },
     },
     student_gender: {
       type: String,
