@@ -27,9 +27,14 @@ const facultySchema = new Schema(
       required: [true, "Please enter your faculty courses subjects taught"],
     },
 
-    faculty_profile_image: {
+    profile_image: {
       type: String,
       // required: [true, "Please Upload your faculty profile image"],
+      required: false,
+    },
+    image_public_id: {
+      type: String,
+      // required: [true, "Please Upload your student profile image"],
       required: false,
     },
     faculty_first_name: {
@@ -69,11 +74,11 @@ const facultySchema = new Schema(
       required: [true, "Please enter your City"],
     },
     faculty_postal_code: {
-      type: Number,
+      type: String,
       required: [true, "Please enter your postal code"],
       validate: {
         validator: function (value) {
-          return Number.isInteger(value) && value > 0;
+          return /^[A-Za-z0-9\s]+$/.test(value);
         },
         message: "Postal code must be a positive integer",
       },
@@ -101,14 +106,8 @@ const facultySchema = new Schema(
       },
     },
     dob: {
-      type: Date,
+      type: String,
       required: [true, "Please enter your Date of Birth"],
-      validate: {
-        validator: function (value) {
-          return value instanceof Date && !isNaN(value.getTime());
-        },
-        message: "Invalid Date of Birth",
-      },
     },
     faculty_gender: {
       type: String,

@@ -6,7 +6,7 @@ router
   .route("/single-user")
   .get(
     isAuthenticatedUser,
-    authorizeRoles("admin", "student", "faculty", "parents"),
+    authorizeRoles("admin", "student", "faculty", "father", "mother"),
     singleUser
   );
 

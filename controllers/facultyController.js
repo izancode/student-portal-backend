@@ -32,10 +32,12 @@ export const signInFaculty = async (req, res, next) => {
       const imageUrl = await uploadToCloudinary(req.body, req.file, "faculty");
       facultyModel
         .findByIdAndUpdate(facultyId, {
-          faculty_profile_image: imageUrl.secure_url,
+          profile_image: imageUrl.secure_url,
+          image_public_id: imageUrl.public_id,
         })
         .then((response) => {
-          faculty.faculty_profile_image = imageUrl.secure_url;
+          faculty.profile_image = imageUrl.secure_url;
+          faculty.image_public_id = imageUrl.public_id;
           res.status(200).json({
             status: true,
             message: "Faculty has been registered successfully",

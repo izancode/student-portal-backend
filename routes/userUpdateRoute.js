@@ -11,8 +11,8 @@ router
   .route("/user-update")
   .patch(
     isAuthenticatedUser,
-    authorizeRoles("admin", "student"),
-    upload.single("student_profile_image"),
+    authorizeRoles("student", "father", "mother", "faculty"),
+    upload.single("profile_image"),
     userUpdate
   );
 
@@ -20,8 +20,8 @@ router
   .route("/user-image-update")
   .patch(
     isAuthenticatedUser,
-    authorizeRoles("admin", "student"),
-    upload.single("student_profile_image"),
+    authorizeRoles("student", "faculty"),
+    upload.single("profile_image"),
     userImageUpdate
   );
 

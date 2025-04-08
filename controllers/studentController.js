@@ -27,14 +27,14 @@ export const signInStudent = async (req, res, next) => {
           name: studentData.student_father_name,
           email: studentData.student_father_email,
           phone_number: studentData.student_father_number,
-          role: "parents",
+          role: "father",
         },
         {
           userId: student._id,
           name: studentData.student_mother_name,
           email: studentData.student_mother_email,
           phone_number: studentData.student_mother_number,
-          role: "parents",
+          role: "mother",
         },
       ]);
     }
@@ -45,11 +45,11 @@ export const signInStudent = async (req, res, next) => {
 
       studentModel
         .findByIdAndUpdate(studentId, {
-          student_profile_image: imageUrl.secure_url,
+          profile_image: imageUrl.secure_url,
           image_public_id: imageUrl.public_id,
         })
         .then((response) => {
-          student.student_profile_image = imageUrl.secure_url;
+          student.profile_image = imageUrl.secure_url;
           (student.image_public_id = imageUrl.public_id),
             res.status(200).json({
               status: true,

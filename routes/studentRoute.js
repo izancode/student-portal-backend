@@ -4,6 +4,6 @@ import { signInStudent } from "../controllers/studentController.js";
 const router = express.Router();
 router
   .route("/studentusersignin")
-  .post(upload.single("student_profile_image"), signInStudent);
+  .post(upload.single("profile_image"), signInStudent);
 
 export default router;
