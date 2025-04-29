@@ -13,13 +13,13 @@ export const signInFaculty = async (req, res, next) => {
           userId: faculty._id,
 
           name:
-            facultyData.faculty_first_name +
+            facultyData.first_name +
             " " +
-            facultyData.faculty_middle_name +
+            facultyData.middle_name +
             " " +
-            facultyData.faculty_last_name,
-          email: facultyData.faculty_email,
-          phone_number: facultyData.faculty_phone_number,
+            facultyData.last_name,
+          email: facultyData.email,
+          phone_number: facultyData.phone_number,
           role: "faculty",
         });
       } catch (error) {

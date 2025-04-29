@@ -33,43 +33,43 @@ const studentSchema = new Schema(
       required: false,
     },
 
-    student_first_name: {
+    first_name: {
       type: String,
       required: [true, "Please enter your first name"],
     },
-    student_middle_name: {
+    middle_name: {
       type: String,
       required: [true, "Please enter your middle name"],
     },
-    student_last_name: {
+    last_name: {
       type: String,
       required: [true, "Please enter your last name"],
     },
-    student_nationality: {
+    nationality: {
       type: String,
       required: [true, "Please enter your nationality"],
     },
-    student_address: {
+    address: {
       type: String,
       required: [true, "Please enter your address"],
     },
-    student_apartment: {
+    apartment: {
       type: String,
       required: [true, "Please enter your apartment"],
     },
-    student_country: {
+    country: {
       type: String,
       required: [true, "Please enter your country"],
     },
-    student_state: {
+    state: {
       type: String,
       required: [true, "Please enter your state"],
     },
-    student_city: {
+    city: {
       type: String,
       required: [true, "Please enter your city"],
     },
-    student_postal_code: {
+    postal_code: {
       type: String,
       required: [true, "Please enter your postal code"],
       validate: {
@@ -79,7 +79,7 @@ const studentSchema = new Schema(
         message: "Postal code must be a positive integer",
       },
     },
-    student_phone_number: {
+    phone_number: {
       type: String,
       required: [true, "Please enter your phone number"],
       unique: true,
@@ -90,7 +90,7 @@ const studentSchema = new Schema(
         message: "Phone number must be a 10-digit number",
       },
     },
-    student_email: {
+    email: {
       type: String,
       required: [true, "Please enter your email"],
       unique: true,
@@ -105,7 +105,7 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Please enter your Date of Birth"],
     },
-    student_gender: {
+    gender: {
       type: String,
       required: [true, "Please enter your gender"],
     },
@@ -117,7 +117,7 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Please enter your caste category"],
     },
-    student_instagram_url: {
+    instagram_url: {
       type: String,
       required: [true, "Please enter your Instagram URL"],
       unique: true,
@@ -130,7 +130,7 @@ const studentSchema = new Schema(
         message: "Invalid Instagram URL",
       },
     },
-    student_linkedin_url: {
+    linkedin_url: {
       type: String,
       required: [true, "Please enter your LinkedIn URL"],
       unique: true,

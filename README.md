@@ -21,7 +21,7 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
 
 # API
 
-1 - Post API for student Sigin
+1 - Post API for student Sigin and Faculty Sigin
 
 - For Upload File Using Cloudinary, Multer , multer-storage-cloudinary
 - Setting Image Format in cloudinary Like width hight size and many more
@@ -34,5 +34,14 @@ Dashboard and Reporting: This feature provides users with personalized dashboard
   then he/she get otp code into email i also tried to get otp via sms with the help of twilio but unfortunately it doesn't work for unpaid so i decided to stick with email its doesn't matter user entering email or phone number otp will to their email only sending email functionality i used nodemailer it very famous easy to use.
 - "solving nodmailer error not sending mail on vercel" this commit now the issue is solved now on deployment phase otp mail is coming now proper i just want add await before
   await senderService(user, otp, otpExpiry); without await code goes to second line that why mail is not coming properly
-Now i have just made header with responsive i want to share my experience with tailwind is pretty good i dont have to create a single css or css file
-its very simple to use in class only i really love it
+
+2 - Post API for login user as per their role
+
+- when user enter his number or mail they got otp in his own mail only
+- also created one token checking api for after login to ensure that login credetial that user enter is correct and that matched to the token part
+- one api for getting single user with the help of token in token have id that id will help to find the user from the faculty or student database
+- and the last i created logout api for clear all the token from backend and also frontend cookies
+
+2 - patch API for Updated
+
+- for this i have created to api one for all the field to updated and for specially image updated wheen the user click on choose file and after thet select which dp want to set after they dont want to do anything its automatically loading in 2 3 sec dp will be display on the frontend and also saved into the database during this process cloudinary function will automatically delete old image and put a new image

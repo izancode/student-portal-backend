@@ -1,12 +1,17 @@
 import jwt from "jsonwebtoken";
 import studentModel from "../models/studentModel.js";
 import facultyModel from "../models/facultyModels.js";
+import adminModel from "../models/adminModels.js";
 
 export const singleUser = async (req, res, next) => {
   try {
-    const findUser =
-      (await facultyModel.findOne({ _id: req.user.userId })) ||
-      (await studentModel.findOne({ _id: req.user.userId }));
+    const [faculty, student, admin] = await Promise.all([
+      facultyModel.findOne({ _id: req.user.userId }),
+      studentModel.findOne({ _id: req.user.userId }),
+      adminModel.findOne({ _id: req.user.userId }),
+    ]);
+
+    const findUser = faculty || student || admin;
 
     res.status(200).json({
       status: true,

@@ -1,13 +1,19 @@
 import studentModel from "../models/studentModel.js";
 import facultyModel from "../models/facultyModels.js";
+import adminModel from "../models/adminModels.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import ErrorHandler from "../utils/errorHandler.js";
 export const userUpdate = async (req, res, next) => {
   try {
     const userLogin = req.user;
-    const findUser =
-      (await facultyModel.findOne({ _id: userLogin.userId })) ||
-      (await studentModel.findOne({ _id: userLogin.userId }));
+
+    const [faculty, student, admin] = await Promise.all([
+      facultyModel.findOne({ _id: req.user.userId }),
+      studentModel.findOne({ _id: req.user.userId }),
+      adminModel.findOne({ _id: req.user.userId }),
+    ]);
+
+    const findUser = faculty || student || admin;
 
     const updatedField = req.body;
     const storeUpdatedfield = {};
@@ -30,11 +36,11 @@ export const userUpdate = async (req, res, next) => {
       ];
 
       userTable = [
-        "student_first_name",
-        "student_middle_name",
-        "student_last_name",
-        "student_email",
-        "student_phone_number",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "phone_number",
       ];
     } else if (userLogin.role === "father") {
       skipFields = [
@@ -44,24 +50,24 @@ export const userUpdate = async (req, res, next) => {
         "student_specialisation",
         "student_how_did_you_hear_about_us",
         "profile_image",
-        "student_first_name",
-        "student_middle_name",
-        "student_last_name",
-        "student_nationality",
-        "student_address",
-        "student_apartment",
-        "student_country",
-        "student_state",
-        "student_city",
-        "student_postal_code",
-        "student_phone_number",
-        "student_email",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "nationality",
+        "address",
+        "apartment",
+        "country",
+        "state",
+        "city",
+        "postal_code",
+        "phone_number",
+        "email",
         "dob",
-        "student_gender",
+        "gender",
         "student_blood_group",
         "student_caste_category",
-        "student_instagram_url",
-        "student_linkedin_url",
+        "instagram_url",
+        "linkedin_url",
         "previous_college_grade_10_details",
         "previous_college_percentage_grade_secured",
         "previous_college_marks_secured",
@@ -91,24 +97,24 @@ export const userUpdate = async (req, res, next) => {
         "student_specialisation",
         "student_how_did_you_hear_about_us",
         "profile_image",
-        "student_first_name",
-        "student_middle_name",
-        "student_last_name",
-        "student_nationality",
-        "student_address",
-        "student_apartment",
-        "student_country",
-        "student_state",
-        "student_city",
-        "student_postal_code",
-        "student_phone_number",
-        "student_email",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "nationality",
+        "address",
+        "apartment",
+        "country",
+        "state",
+        "city",
+        "postal_code",
+        "phone_number",
+        "email",
         "dob",
-        "student_gender",
+        "gender",
         "student_blood_group",
         "student_caste_category",
-        "student_instagram_url",
-        "student_linkedin_url",
+        "instagram_url",
+        "linkedin_url",
         "previous_college_grade_10_details",
         "previous_college_percentage_grade_secured",
         "previous_college_marks_secured",
@@ -131,12 +137,22 @@ export const userUpdate = async (req, res, next) => {
         "student_mother_email",
       ];
     } else if (userLogin.role === "faculty") {
+      skipFields = ["profile_image", "image_public_id"];
       userTable = [
-        "faculty_first_name",
-        "faculty_middle_name",
-        "faculty_last_name",
-        "faculty_email",
-        "faculty_phone_number",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "phone_number",
+      ];
+    } else if (userLogin.role === "admin") {
+      skipFields = ["profile_image", "image_public_id"];
+      userTable = [
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "phone_number",
       ];
     }
     await Promise.all(
@@ -148,39 +164,27 @@ export const userUpdate = async (req, res, next) => {
         if (findUser[field] !== updatedField[field]) {
           // if (userName.includes(field)) {
           //   if (userLogin.role === "student") {
-          //     userLogin.name = `${updatedField.student_first_name} ${updatedField.student_middle_name} ${updatedField.student_last_name}`;
+          //     userLogin.name = `${updatedField.first_name} ${updatedField.middle_name} ${updatedField.last_name}`;
           //   }
           // }
           if (userTable.includes(field)) {
-            if (userLogin.role === "student") {
+            if (
+              userLogin.role === "student" ||
+              userLogin.role === "faculty" ||
+              userLogin.role === "admin"
+            ) {
               if (
-                field === "student_first_name" ||
-                field === "student_middle_name" ||
-                field === "student_last_name"
+                field === "first_name" ||
+                field === "middle_name" ||
+                field === "last_name"
               ) {
-                userLogin.name = `${updatedField.student_first_name} ${updatedField.student_middle_name} ${updatedField.student_last_name}`;
+                userLogin.name = `${updatedField.first_name} ${updatedField.middle_name} ${updatedField.last_name}`;
               }
-              if (field === "student_email") {
-                userLogin.email = updatedField.student_email;
+              if (field === "email") {
+                userLogin.email = updatedField.email;
               }
-              if (field === "student_phone_number") {
-                userLogin.phone_number = updatedField.student_phone_number;
-              }
-            }
-
-            if (userLogin.role === "faculty") {
-              if (
-                field === "faculty_first_name" ||
-                field === "faculty_middle_name" ||
-                field === "faculty_last_name"
-              ) {
-                userLogin.name = `${updatedField.faculty_first_name} ${updatedField.faculty_middle_name} ${updatedField.faculty_last_name}`;
-              }
-              if (field === "faculty_email") {
-                userLogin.email = updatedField.faculty_email;
-              }
-              if (field === "faculty_phone_number") {
-                userLogin.phone_number = updatedField.faculty_phone_number;
+              if (field === "phone_number") {
+                userLogin.phone_number = updatedField.phone_number;
               }
             }
 
@@ -225,6 +229,7 @@ export const userUpdate = async (req, res, next) => {
       message: `Field is Updated successfully`,
     });
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };
@@ -233,9 +238,13 @@ export const userImageUpdate = async (req, res, next) => {
   try {
     const userLogin = req.user;
 
-    const findUser =
-      (await facultyModel.findOne({ _id: userLogin.userId })) ||
-      (await studentModel.findOne({ _id: userLogin.userId }));
+    const [faculty, student, admin] = await Promise.all([
+      facultyModel.findOne({ _id: req.user.userId }),
+      studentModel.findOne({ _id: req.user.userId }),
+      adminModel.findOne({ _id: req.user.userId }),
+    ]);
+
+    const findUser = faculty || student || admin;
     const updatedFile = req.file;
 
     const folderPath = userLogin.role;

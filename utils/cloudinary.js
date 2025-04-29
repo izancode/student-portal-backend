@@ -12,21 +12,12 @@ cloudinary.config({
 
 export const uploadToCloudinary = (body, file, folderPath, deletePublicId) => {
   return new Promise((resolve, reject) => {
-    let imageName;
     if (folderPath == "student") {
       folderPath = "student-portal-app/student-profile";
-      imageName = `${
-        body.student_first_name +
-        body.student_middle_name +
-        body.student_last_name
-      }-${Date.now()}`;
     } else if (folderPath == "faculty") {
       folderPath = "student-portal-app/faculty-profile";
-      imageName = `${
-        body.faculty_first_name +
-        body.faculty_middle_name +
-        body.faculty_last_name
-      }-${Date.now()}`;
+    } else if (folderPath == "admin") {
+      folderPath = "student-portal-app/admin-profile";
     }
 
     if (deletePublicId) {
@@ -36,7 +27,9 @@ export const uploadToCloudinary = (body, file, folderPath, deletePublicId) => {
         }
       });
     }
-
+    const imageName = `${
+      body.first_name + body.middle_name + body.last_name
+    }-${Date.now()}`;
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: folderPath,

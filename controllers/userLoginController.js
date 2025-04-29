@@ -24,7 +24,7 @@ export const userLogIn = async (req, res, next) => {
       specialChars: false,
       lowerCaseAlphabets: false,
     });
-
+    console.log(otp);
     const otpExpiry = Date.now() + 2 * 60 * 1000;
     user.otp = otp;
     user.otpExpiry = otpExpiry;

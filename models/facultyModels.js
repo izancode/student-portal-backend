@@ -37,43 +37,43 @@ const facultySchema = new Schema(
       // required: [true, "Please Upload your student profile image"],
       required: false,
     },
-    faculty_first_name: {
+    first_name: {
       type: String,
       required: [true, "Please enter your faculty first name"],
     },
-    faculty_middle_name: {
+    middle_name: {
       type: String,
       required: [true, "Please enter your faculty middle name"],
     },
-    faculty_last_name: {
+    last_name: {
       type: String,
       required: [true, "Please enter your faculty last name"],
     },
-    faculty_nationality: {
+    nationality: {
       type: String,
       required: [true, "Please enter your nationality"],
     },
-    faculty_address: {
+    address: {
       type: String,
       required: [true, "Please enter your address"],
     },
-    faculty_apartment: {
+    apartment: {
       type: String,
       required: [true, "Please enter your apartment"],
     },
-    faculty_country: {
+    country: {
       type: String,
       required: [true, "Please enter your country"],
     },
-    faculty_state: {
+    state: {
       type: String,
       required: [true, "Please enter your state"],
     },
-    faculty_city: {
+    city: {
       type: String,
       required: [true, "Please enter your City"],
     },
-    faculty_postal_code: {
+    postal_code: {
       type: String,
       required: [true, "Please enter your postal code"],
       validate: {
@@ -83,7 +83,7 @@ const facultySchema = new Schema(
         message: "Postal code must be a positive integer",
       },
     },
-    faculty_phone_number: {
+    phone_number: {
       type: String,
       required: [true, "Please enter your phone number"],
       unique: true,
@@ -94,7 +94,7 @@ const facultySchema = new Schema(
         message: "Phone number must be a 10-digit number",
       },
     },
-    faculty_email: {
+    email: {
       type: String,
       required: [true, "Please enter your email"],
       unique: true,
@@ -109,12 +109,12 @@ const facultySchema = new Schema(
       type: String,
       required: [true, "Please enter your Date of Birth"],
     },
-    faculty_gender: {
+    gender: {
       type: String,
       required: [true, "Please enter your gender"],
     },
 
-    faculty_instagram_url: {
+    instagram_url: {
       type: String,
       required: [true, "Please enter your Instagram URL"],
       unique: true,
@@ -127,7 +127,7 @@ const facultySchema = new Schema(
         message: "Invalid Instagram URL",
       },
     },
-    faculty_linkedin_url: {
+    linkedin_url: {
       type: String,
       required: [true, "Please enter your LinkedIn URL"],
       unique: true,

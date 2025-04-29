@@ -13,13 +13,13 @@ export const signInStudent = async (req, res, next) => {
         {
           userId: student._id,
           name:
-            studentData.student_first_name +
+            studentData.first_name +
             " " +
-            studentData.student_middle_name +
+            studentData.middle_name +
             " " +
-            studentData.student_last_name,
-          email: studentData.student_email,
-          phone_number: studentData.student_phone_number,
+            studentData.last_name,
+          email: studentData.email,
+          phone_number: studentData.phone_number,
           role: "student",
         },
         {
