@@ -22,7 +22,7 @@ export const allUser = async (req, res, next) => {
     res.status(200).json({
       full_User_Data: all_Model_Users,
       login_User_Data: only_Login_User,
-      number_Of_Login_User: only_Login_User_length.length,
+      number_Of_Login_User: only_Login_User_length,
       message: "All User details fetched successfully",
       status: true,
     });
