@@ -226,6 +226,16 @@ const studentSchema = new Schema(
         message: "Invalid email format",
       },
     },
+    father_profile_image: {
+      type: String,
+      // required: [true, "Please Upload your father profile image"],
+      required: false,
+    },
+    father_image_public_id: {
+      type: String,
+      // required: [true, "Please Upload your mother profile image"],
+      required: false,
+    },
     student_mother_name: {
       type: String,
       required: [true, "Please enter your student mother name"],
@@ -255,6 +265,16 @@ const studentSchema = new Schema(
         },
         message: "Invalid email format",
       },
+    },
+    mother_profile_image: {
+      type: String,
+      // required: [true, "Please Upload your student profile image"],
+      required: false,
+    },
+    mother_image_public_id: {
+      type: String,
+      // required: [true, "Please Upload your student profile image"],
+      required: false,
     },
     in_case_of_guardian_please_specify_the_relationship: {
       type: String,

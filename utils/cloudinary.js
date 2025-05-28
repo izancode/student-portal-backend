@@ -10,10 +10,17 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadToCloudinary = (body, file, folderPath, deletePublicId) => {
+export const uploadToCloudinary = (body, files, folderPath, deletePublicId) => {
+
+  
+
   return new Promise((resolve, reject) => {
     if (folderPath == "student") {
       folderPath = "student-portal-app/student-profile";
+    } else if (folderPath == "father") {
+      folderPath = "student-portal-app/father-profile";
+    } else if (folderPath == "mother") {
+      folderPath = "student-portal-app/mother-profile";
     } else if (folderPath == "faculty") {
       folderPath = "student-portal-app/faculty-profile";
     } else if (folderPath == "admin") {
@@ -27,14 +34,31 @@ export const uploadToCloudinary = (body, file, folderPath, deletePublicId) => {
         }
       });
     }
-    const imageName = `${
-      body.first_name + body.middle_name + body.last_name
-    }-${Date.now()}`;
+
+    
+    let imageName = "";
+    if (folderPath === "student-portal-app/father-profile") {
+      imageName = `${body.student_father_name
+        .replace(/\s+/g, "")
+        .toLowerCase()}-${Date.now()}`;
+    } else if (folderPath === "student-portal-app/mother-profile") {
+      imageName = `${body.student_mother_name
+        .replace(/\s+/g, "")
+        .toLowerCase()}-${Date.now()}`;
+    } else {
+      imageName = `${
+        body.first_name.toLowerCase() +
+        body.middle_name.toLowerCase() +
+        body.last_name.toLowerCase()
+      }-${Date.now()}`;
+    }
+  
+    
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: folderPath,
         public_id: imageName,
-        format: file.mimetype.split("/")[1],
+        format: files.mimetype.split("/")[1],
       },
       (error, result) => {
         if (error) {
@@ -46,8 +70,8 @@ export const uploadToCloudinary = (body, file, folderPath, deletePublicId) => {
       }
     );
 
-    if (file.buffer) {
-      uploadStream.end(file.buffer);
+    if (files.buffer) {
+      uploadStream.end(files.buffer);
     } else {
       reject(new Error("No file buffer available"));
     }

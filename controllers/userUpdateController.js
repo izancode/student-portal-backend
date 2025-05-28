@@ -1,26 +1,46 @@
+import mongoose from "mongoose";
 import studentModel from "../models/studentModel.js";
 import facultyModel from "../models/facultyModels.js";
 import adminModel from "../models/adminModels.js";
+import userModels from "../models/userModels.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import ErrorHandler from "../utils/errorHandler.js";
 export const userUpdate = async (req, res, next) => {
   try {
     const userLogin = req.user;
+    const userQuery = req.query;
+
+    let handleTwo = "";
+    if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
+      const userFindQuery = await userModels.findOne({
+        userId: userQuery.userId,
+        role: userQuery.role,
+      });
+
+      handleTwo = userFindQuery;
+    } else {
+      handleTwo = userLogin;
+    }
 
     const [faculty, student, admin] = await Promise.all([
-      facultyModel.findOne({ _id: req.user.userId }),
-      studentModel.findOne({ _id: req.user.userId }),
-      adminModel.findOne({ _id: req.user.userId }),
+      facultyModel.findOne({
+        _id: handleTwo.userId,
+      }),
+      studentModel.findOne({
+        _id: handleTwo.userId,
+      }),
+      adminModel.findOne({
+        _id: handleTwo.userId,
+      }),
     ]);
 
     const findUser = faculty || student || admin;
-
     const updatedField = req.body;
     const storeUpdatedfield = {};
     let skipFields = [];
 
     let userTable = [];
-    if (userLogin.role === "student") {
+    if (handleTwo.role === "student") {
       skipFields = [
         "profile_image",
         "image_public_id",
@@ -42,7 +62,7 @@ export const userUpdate = async (req, res, next) => {
         "email",
         "phone_number",
       ];
-    } else if (userLogin.role === "father") {
+    } else if (handleTwo.role === "father") {
       skipFields = [
         "student_school",
         "student_programs",
@@ -89,7 +109,7 @@ export const userUpdate = async (req, res, next) => {
         "student_father_number",
         "student_father_email",
       ];
-    } else if (userLogin.role === "mother") {
+    } else if (handleTwo.role === "mother") {
       skipFields = [
         "student_school",
         "student_programs",
@@ -136,7 +156,7 @@ export const userUpdate = async (req, res, next) => {
         "student_mother_number",
         "student_mother_email",
       ];
-    } else if (userLogin.role === "faculty") {
+    } else if (handleTwo.role === "faculty") {
       skipFields = ["profile_image", "image_public_id"];
       userTable = [
         "first_name",
@@ -145,7 +165,7 @@ export const userUpdate = async (req, res, next) => {
         "email",
         "phone_number",
       ];
-    } else if (userLogin.role === "admin") {
+    } else if (handleTwo.role === "admin") {
       skipFields = ["profile_image", "image_public_id"];
       userTable = [
         "first_name",
@@ -169,45 +189,45 @@ export const userUpdate = async (req, res, next) => {
           // }
           if (userTable.includes(field)) {
             if (
-              userLogin.role === "student" ||
-              userLogin.role === "faculty" ||
-              userLogin.role === "admin"
+              handleTwo.role === "student" ||
+              handleTwo.role === "faculty" ||
+              handleTwo.role === "admin"
             ) {
               if (
                 field === "first_name" ||
                 field === "middle_name" ||
                 field === "last_name"
               ) {
-                userLogin.name = `${updatedField.first_name} ${updatedField.middle_name} ${updatedField.last_name}`;
+                handleTwo.name = `${updatedField.first_name} ${updatedField.middle_name} ${updatedField.last_name}`;
               }
               if (field === "email") {
-                userLogin.email = updatedField.email;
+                handleTwo.email = updatedField.email;
               }
               if (field === "phone_number") {
-                userLogin.phone_number = updatedField.phone_number;
+                handleTwo.phone_number = updatedField.phone_number;
               }
             }
 
-            if (userLogin.role === "father") {
+            if (handleTwo.role === "father") {
               if (field === "student_father_name") {
-                userLogin.name = updatedField.student_father_name;
+                handleTwo.name = updatedField.student_father_name;
               }
               if (field === "student_father_email") {
-                userLogin.email = updatedField.student_father_email;
+                handleTwo.email = updatedField.student_father_email;
               }
               if (field === "student_father_number") {
-                userLogin.phone_number = updatedField.student_father_number;
+                handleTwo.phone_number = updatedField.student_father_number;
               }
             }
-            if (userLogin.role === "mother") {
+            if (handleTwo.role === "mother") {
               if (field === "student_mother_name") {
-                userLogin.name = updatedField.student_mother_name;
+                handleTwo.name = updatedField.student_mother_name;
               }
               if (field === "student_mother_email") {
-                userLogin.email = updatedField.student_mother_email;
+                handleTwo.email = updatedField.student_mother_email;
               }
               if (field === "student_mother_number") {
-                userLogin.phone_number = updatedField.student_mother_number;
+                handleTwo.phone_number = updatedField.student_mother_number;
               }
             }
           }
@@ -216,7 +236,7 @@ export const userUpdate = async (req, res, next) => {
       })
     );
 
-    await userLogin.save();
+    await handleTwo.save();
     if (Object.keys(storeUpdatedfield).length > 0) {
       Object.assign(findUser, storeUpdatedfield);
       await findUser.save();
@@ -238,17 +258,44 @@ export const userImageUpdate = async (req, res, next) => {
   try {
     const userLogin = req.user;
 
+    const userQuery = req.query;
+
+    let handleTwo = "";
+    if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
+      const userFindQuery = await userModels.findOne({
+        userId: userQuery.userId,
+        role: userQuery.role,
+      });
+
+      handleTwo = userFindQuery;
+    } else {
+      handleTwo = userLogin;
+    }
+    console.log(handleTwo);
     const [faculty, student, admin] = await Promise.all([
-      facultyModel.findOne({ _id: req.user.userId }),
-      studentModel.findOne({ _id: req.user.userId }),
-      adminModel.findOne({ _id: req.user.userId }),
+      facultyModel.findOne({ _id: handleTwo.userId }),
+      studentModel.findOne({ _id: handleTwo.userId }),
+      adminModel.findOne({ _id: handleTwo.userId }),
     ]);
 
     const findUser = faculty || student || admin;
-    const updatedFile = req.file;
 
-    const folderPath = userLogin.role;
-    const publicId = findUser.image_public_id;
+    const folderPath = handleTwo.role;
+    let publicIdField = "";
+    let updatedFileField = "";
+    if (folderPath === "father") {
+      publicIdField = "father_image_public_id";
+      updatedFileField = "father_profile_image";
+    } else if (folderPath === "mother") {
+      publicIdField = "mother_image_public_id";
+      updatedFileField = "mother_profile_image";
+    } else {
+      publicIdField = "image_public_id";
+      updatedFileField = "profile_image";
+    }
+
+    const publicId = findUser[publicIdField];
+    const updatedFile = req.files[updatedFileField]?.[0];
 
     const imageUrl = await uploadToCloudinary(
       findUser,
@@ -256,8 +303,10 @@ export const userImageUpdate = async (req, res, next) => {
       folderPath,
       publicId
     );
-    findUser.profile_image = imageUrl.secure_url;
-    findUser.image_public_id = imageUrl.public_id;
+
+    findUser[updatedFileField] = imageUrl.secure_url;
+    findUser[publicIdField] = imageUrl.public_id;
+
     await findUser.save();
     res.status(200).json({
       status: true,

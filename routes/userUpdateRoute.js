@@ -7,22 +7,26 @@ import {
   userImageUpdate,
 } from "../controllers/userUpdateController.js";
 const router = express.Router();
-router
-  .route("/user-update")
-  .patch(
-    isAuthenticatedUser,
-    authorizeRoles("admin", "student", "father", "mother", "faculty"),
-    upload.single("profile_image"),
-    userUpdate
-  );
+router.route("/user-update").patch(
+  isAuthenticatedUser,
+  authorizeRoles("admin", "student", "father", "mother", "faculty"),
+  upload.fields([
+    { name: "father_profile_image", maxCount: 1 },
+    { name: "profile_image", maxCount: 1 },
+    { name: "mother_profile_image", maxCount: 1 },
+  ]),
+  userUpdate
+);
 
-router
-  .route("/user-image-update")
-  .patch(
-    isAuthenticatedUser,
-    authorizeRoles("admin", "student", "faculty"),
-    upload.single("profile_image"),
-    userImageUpdate
-  );
+router.route("/user-image-update").patch(
+  isAuthenticatedUser,
+  authorizeRoles("admin", "student", "father", "mother", "faculty"),
+  upload.fields([
+    { name: "father_profile_image", maxCount: 1 },
+    { name: "profile_image", maxCount: 1 },
+    { name: "mother_profile_image", maxCount: 1 },
+  ]),
+  userImageUpdate
+);
 
 export default router;
