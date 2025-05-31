@@ -259,7 +259,7 @@ export const userImageUpdate = async (req, res, next) => {
     const userLogin = req.user;
 
     const userQuery = req.query;
-    console.log(userQuery);
+
     let handleTwo = "";
     if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
       const userFindQuery = await userModels.findOne({
