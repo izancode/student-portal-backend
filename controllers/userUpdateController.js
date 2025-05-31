@@ -263,7 +263,7 @@ export const userImageUpdate = async (req, res, next) => {
     let handleTwo = "";
     if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
       const userFindQuery = await userModels.findOne({
-        userId: userQuery.userId,
+        userId: userLogin.userId,
         role: userQuery.role,
       });
 
@@ -271,7 +271,7 @@ export const userImageUpdate = async (req, res, next) => {
     } else {
       handleTwo = userLogin;
     }
-    console.log(handleTwo);
+
     const [faculty, student, admin] = await Promise.all([
       facultyModel.findOne({ _id: handleTwo.userId }),
       studentModel.findOne({ _id: handleTwo.userId }),
