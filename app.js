@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-// import allowCors from "./middlewares/cors.js";
+
 import errorMiddleware from "./middlewares/Error.js";
 import homeRoute from "./routes/homeRouts.js";
 import studentRoute from "./routes/studentRoute.js";
@@ -12,6 +12,8 @@ import userAllRoute from "./routes/userAllRoute.js";
 import userUpdateRoute from "./routes/userUpdateRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import checkTokenRoute from "./routes/checkTokenRoute.js";
+import menuAdminRoute from "./routes/menuAdminRoute.js";
+
 const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
@@ -43,6 +45,7 @@ app.use("/api/v1", userSingleRoute);
 app.use("/api/v1", userAllRoute);
 app.use("/api/v1", userUpdateRoute);
 app.use("/api/v1", checkTokenRoute);
+app.use("/api/v1", menuAdminRoute);
 app.use(errorMiddleware);
 
 export default app;
