@@ -23,5 +23,16 @@ export const allMenus = async (req, res, next) => {
     res.status(200).json({
       menuModelStore,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log("error", error);
+    return next(error);
+  }
+};
+
+export const allMenusUpdate = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.log("error", error);
+    return next(error);
+  }
 };
