@@ -5,7 +5,7 @@ import { authorizeRoles, isAuthenticatedUser } from "../middlewares/auth.js";
 import {
   menuAdminController,
   allMenus,
-  allMenusUpdate,
+  allMenusAdmin,
 } from "../controllers/menuAdminController.js";
 router
   .route("/create-menu-admin")
@@ -19,6 +19,6 @@ router
   );
 
 router
-  .route("/all-menu-update")
-  .patch(isAuthenticatedUser, authorizeRoles("admin"), allMenusUpdate);
+  .route("/all-menu-admin")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), allMenusAdmin);
 export default router;

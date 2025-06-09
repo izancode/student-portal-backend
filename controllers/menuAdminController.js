@@ -16,16 +16,14 @@ export const menuAdminController = async (req, res, next) => {
 
 export const allMenus = async (req, res, next) => {
   try {
-    const menuModelStore = await menuModel.find({});
-
-    const filterMenuByRole = menuModelStore.filter((item) =>
-      item.role.includes(req.user.role)
-    );
+    const role = req.user.role;
+    const filterMenuByRole = await menuModel.find({
+      role: { $in: [role] },
+    });
 
     res.status(200).json({
       status: true,
       userMenu: filterMenuByRole,
-      adminMenu: menuModelStore,
     });
   } catch (error) {
     console.log("error", error);
@@ -33,9 +31,20 @@ export const allMenus = async (req, res, next) => {
   }
 };
 
-export const allMenusUpdate = async (req, res, next) => {
+export const allMenusAdmin = async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log(req.query);
+    const role = req.query.role;
+    const MenuList = await menuModel.find({});
+    const filterMenuByRole = await menuModel.find({
+      role: { $in: [role] },
+    });
+
+    res.status(200).json({
+      status: true,
+      userMenu: filterMenuByRole,
+      MenuList: MenuList,
+    });
   } catch (error) {
     console.log("error", error);
     return next(error);
