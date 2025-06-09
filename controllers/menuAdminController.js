@@ -35,6 +35,7 @@ export const allMenus = async (req, res, next) => {
 
 export const allMenusUpdate = async (req, res, next) => {
   try {
+    console.log(req.body);
   } catch (error) {
     console.log("error", error);
     return next(error);
