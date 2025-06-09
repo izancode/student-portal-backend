@@ -17,8 +17,15 @@ export const menuAdminController = async (req, res, next) => {
 export const allMenus = async (req, res, next) => {
   try {
     const menuModelStore = await menuModel.find({});
+
+    const filterMenuByRole = menuModelStore.filter((item) =>
+      item.role.includes(req.user.role)
+    );
+
     res.status(200).json({
-      menuModelStore,
+      status: true,
+      userMenu: filterMenuByRole,
+      adminMenu: menuModelStore,
     });
   } catch (error) {
     console.log("error", error);
