@@ -6,6 +6,7 @@ import {
   menuAdminController,
   allMenus,
   allMenusAdmin,
+  updateMenusAdmin,
 } from "../controllers/menuAdminController.js";
 router
   .route("/create-menu-admin")
@@ -21,4 +22,9 @@ router
 router
   .route("/all-menu-admin")
   .get(isAuthenticatedUser, authorizeRoles("admin"), allMenusAdmin);
+
+router
+  .route("/update-menu-admin")
+  .patch(isAuthenticatedUser, authorizeRoles("admin"), updateMenusAdmin);
+
 export default router;

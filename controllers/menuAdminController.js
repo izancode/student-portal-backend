@@ -33,7 +33,6 @@ export const allMenus = async (req, res, next) => {
 
 export const allMenusAdmin = async (req, res, next) => {
   try {
-    console.log(req.query);
     const role = req.query.role;
     const MenuList = await menuModel.find({});
     const filterMenuByRole = await menuModel.find({
@@ -44,7 +43,24 @@ export const allMenusAdmin = async (req, res, next) => {
       status: true,
       userMenu: filterMenuByRole,
       MenuList: MenuList,
+      role: role,
     });
+  } catch (error) {
+    console.log("error", error);
+    return next(error);
+  }
+};
+export const updateMenusAdmin = async (req, res, next) => {
+  try {
+    console.log("req", req.body);
+    const MenuList = await menuModel.findById({ _id: req.body._id });
+    console.log("MenuList", MenuList);
+    const isRoleAvailable = MenuList.role.includes(req.body.role);
+    console.log("isRoleAvailable", isRoleAvailable);
+    if (!isRoleAvailable) {
+      console.log("yes");
+    }
+    // console.log("MenuList", MenuList);
   } catch (error) {
     console.log("error", error);
     return next(error);
