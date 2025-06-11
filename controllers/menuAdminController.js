@@ -52,15 +52,23 @@ export const allMenusAdmin = async (req, res, next) => {
 };
 export const updateMenusAdmin = async (req, res, next) => {
   try {
-    console.log("req", req.body);
     const MenuList = await menuModel.findById({ _id: req.body._id });
-    console.log("MenuList", MenuList);
-    const isRoleAvailable = MenuList.role.includes(req.body.role);
-    console.log("isRoleAvailable", isRoleAvailable);
+
+    const role = req.body.role;
+    const isRoleAvailable = MenuList.role.includes(role);
+
     if (!isRoleAvailable) {
-      console.log("yes");
+      MenuList.role.push(role);
+    } else {
+      const arrayPostion = MenuList.role.indexOf(role);
+
+      MenuList.role.splice(arrayPostion, 1);
     }
-    // console.log("MenuList", MenuList);
+    await MenuList.save();
+    res.status(200).json({
+      status: true,
+      message: `Menu has been updated successfully for ${role}`,
+    });
   } catch (error) {
     console.log("error", error);
     return next(error);
