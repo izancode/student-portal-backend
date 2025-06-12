@@ -50,6 +50,8 @@ export const allMenusAdmin = async (req, res, next) => {
     return next(error);
   }
 };
+
+
 export const updateMenusAdmin = async (req, res, next) => {
   try {
     const MenuList = await menuModel.findById({ _id: req.body._id });

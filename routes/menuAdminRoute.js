@@ -11,6 +11,8 @@ import {
 router
   .route("/create-menu-admin")
   .post(isAuthenticatedUser, authorizeRoles("admin"), menuAdminController);
+
+  
 router
   .route("/all-menu")
   .get(
