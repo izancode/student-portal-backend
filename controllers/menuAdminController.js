@@ -34,7 +34,7 @@ export const allMenus = async (req, res, next) => {
 export const allMenusAdmin = async (req, res, next) => {
   try {
     const role = req.query.role;
-    const MenuList = await menuModel.find({});
+    const menuList = await menuModel.find({});
     const filterMenuByRole = await menuModel.find({
       role: { $in: [role] },
     });
@@ -42,7 +42,7 @@ export const allMenusAdmin = async (req, res, next) => {
     res.status(200).json({
       status: true,
       userMenu: filterMenuByRole,
-      MenuList: MenuList,
+      menuList: menuList,
       role: role,
     });
   } catch (error) {
@@ -51,22 +51,21 @@ export const allMenusAdmin = async (req, res, next) => {
   }
 };
 
-
 export const updateMenusAdmin = async (req, res, next) => {
   try {
-    const MenuList = await menuModel.findById({ _id: req.body._id });
-
+    const menuList = await menuModel.findById({ _id: req.body._id });
+    console.log("menuList", menuList);
     const role = req.body.role;
-    const isRoleAvailable = MenuList.role.includes(role);
+    const isRoleAvailable = menuList.role.includes(role);
 
     if (!isRoleAvailable) {
-      MenuList.role.push(role);
+      menuList.role.push(role);
     } else {
-      const arrayPostion = MenuList.role.indexOf(role);
+      const arrayPostion = menuList.role.indexOf(role);
 
-      MenuList.role.splice(arrayPostion, 1);
+      menuList.role.splice(arrayPostion, 1);
     }
-    await MenuList.save();
+    await menuList.save();
     res.status(200).json({
       status: true,
       message: `Menu has been updated successfully for ${role}`,
