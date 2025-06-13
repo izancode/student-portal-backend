@@ -54,7 +54,7 @@ export const allMenusAdmin = async (req, res, next) => {
 export const updateMenusAdmin = async (req, res, next) => {
   try {
     const menuList = await menuModel.findById({ _id: req.body._id });
-    console.log("menuList", menuList);
+
     const role = req.body.role;
     const isRoleAvailable = menuList.role.includes(role);
 

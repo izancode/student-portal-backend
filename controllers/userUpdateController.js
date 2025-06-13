@@ -182,11 +182,6 @@ export const userUpdate = async (req, res, next) => {
         }
 
         if (findUser[field] !== updatedField[field]) {
-          // if (userName.includes(field)) {
-          //   if (userLogin.role === "student") {
-          //     userLogin.name = `${updatedField.first_name} ${updatedField.middle_name} ${updatedField.last_name}`;
-          //   }
-          // }
           if (userTable.includes(field)) {
             if (
               handleTwo.role === "student" ||
@@ -263,7 +258,7 @@ export const userImageUpdate = async (req, res, next) => {
     let handleTwo = "";
     if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
       const userFindQuery = await userModels.findOne({
-        userId: userLogin.userId,    
+        userId: userLogin.userId,
         role: userQuery.role,
       });
 

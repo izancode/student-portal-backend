@@ -49,7 +49,6 @@ export const allUser = async (req, res, next) => {
       status: true,
     });
   } catch (error) {
-    // console.log(error);
     return next(error);
   }
 };
