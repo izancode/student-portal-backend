@@ -6,6 +6,7 @@ import userModel from "../models/userModels.js";
 export const signInFaculty = async (req, res, next) => {
   try {
     const facultyData = { ...req.body };
+    console.log("facultyData", facultyData);
     const faculty = await facultyModel.create(facultyData);
     if (faculty) {
       try {
@@ -23,6 +24,7 @@ export const signInFaculty = async (req, res, next) => {
           role: "faculty",
         });
       } catch (error) {
+        console.log("signInFaculty 1", error);
         await facultyModel.findByIdAndDelete(faculty._id);
         return next(error);
       }
@@ -50,6 +52,8 @@ export const signInFaculty = async (req, res, next) => {
       return next(new ErrorHandler("Image is not Uploaded by Server", 422));
     }
   } catch (error) {
+    console.log("signInFaculty 2", error);
+
     return next(error);
   }
 };
