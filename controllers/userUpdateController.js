@@ -9,14 +9,15 @@ export const userUpdate = async (req, res, next) => {
   try {
     const userLogin = req.user;
     const userQuery = req.query;
-
+    console.log("userLogin", userLogin);
+    console.log("userQuery", userQuery);
     let handleTwo = "";
     if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
       const userFindQuery = await userModels.findOne({
         userId: userQuery.userId,
         role: userQuery.role,
       });
-
+      console.log("userFindQuery", userFindQuery);
       handleTwo = userFindQuery;
     } else {
       handleTwo = userLogin;
@@ -33,8 +34,9 @@ export const userUpdate = async (req, res, next) => {
         _id: handleTwo.userId,
       }),
     ]);
-
+    console.log("handleTwo", handleTwo);
     const findUser = faculty || student || admin;
+    console.log("findUser", findUser);
     const updatedField = req.body;
     const storeUpdatedfield = {};
     let skipFields = [];
@@ -175,6 +177,7 @@ export const userUpdate = async (req, res, next) => {
         "phone_number",
       ];
     }
+    console.log("updatedField", updatedField);
     await Promise.all(
       Object.keys(updatedField).map(async (field) => {
         if (skipFields.includes(field)) {
@@ -230,7 +233,7 @@ export const userUpdate = async (req, res, next) => {
         }
       })
     );
-
+    console.log("storeUpdatedfield", storeUpdatedfield);
     await handleTwo.save();
     if (Object.keys(storeUpdatedfield).length > 0) {
       Object.assign(findUser, storeUpdatedfield);
@@ -254,7 +257,8 @@ export const userImageUpdate = async (req, res, next) => {
     const userLogin = req.user;
 
     const userQuery = req.query;
-
+    console.log("userLogin", userLogin);
+    console.log("userQuery", userQuery);
     let handleTwo = "";
     if (Object.keys(userQuery).length > 0 && req.user.role === "admin") {
       const userFindQuery = await userModels.findOne({
