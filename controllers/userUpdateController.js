@@ -35,10 +35,11 @@ export const userUpdate = async (req, res, next) => {
     ]);
 
     const findUser = faculty || student || admin;
+
+    console.log("findUser", findUser);
     const updatedField = req.body;
     const storeUpdatedfield = {};
     let skipFields = [];
-
     let userTable = [];
     if (handleTwo.role === "student") {
       skipFields = [
@@ -166,7 +167,7 @@ export const userUpdate = async (req, res, next) => {
         "phone_number",
       ];
     } else if (handleTwo.role === "admin") {
-      skipFields = ["profile_image", "image_public_id"];
+      skipFields = ["profile_image", "image_public_id", "_id", "createdAt"];
       userTable = [
         "first_name",
         "middle_name",
@@ -177,11 +178,13 @@ export const userUpdate = async (req, res, next) => {
     }
     await Promise.all(
       Object.keys(updatedField).map(async (field) => {
+        // console.log("field", field);
         if (skipFields.includes(field)) {
           return;
         }
 
         if (findUser[field] !== updatedField[field]) {
+          console.log("field", field);
           if (userTable.includes(field)) {
             if (
               handleTwo.role === "student" ||
