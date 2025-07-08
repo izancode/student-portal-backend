@@ -1,47 +1,130 @@
-# Project Title: SchoolCool - Backend
+# 🏫 SchoolCool - Backend
 
-SchoolCool is an all-in-one school management web application that aims to streamline administrative processes, improve communication, and enhance the overall educational experience for students, teachers, and parents. The application will be built using a modern technology stack to provide a user-friendly, efficient, and secure platform.
+The **SchoolCool Backend** powers the APIs and core logic of the SchoolCool platform – a full-featured school management system supporting role-based access, secure authentication, user profile management, and more.
 
-The front-end will be designed with a responsive and intuitive user interface, ensuring a seamless experience across various devices. The back-end will consist of a robust API that handles all data transactions and supports role-based access control to protect sensitive information. The database will store and manage all relevant data, including student records, staff information, course schedules, attendance, and grades.
+Built with **Node.js**, **Express.js**, and **MongoDB**, this backend offers scalable APIs that serve multiple user roles including **Admins, Students, Faculty, and Parents**.
 
-# Feature Set
+---
 
-The web-based application should provide the following feature set. Feel free to extend this to make the project more vibrant:
+## 🚀 Project Overview
 
-User Authentication: This feature supports the registration, login, and role-based access control for different user types, including administrators, teachers, students, and parents.
-Student Management: This feature allows for the creation, modification, and deletion of student records, including personal information, enrolment status, and academic history.
-Staff Management: This feature enables the administration to manage staff information, including personal details, employment status, and teaching assignments.
-Course Scheduling: This feature facilitates the creation and management of course schedules, including class timings, room assignments, and instructor allocation.
-Attendance Tracking: This feature allows teachers to record and track student attendance for each class, while administrators and parents can monitor overall attendance trends.
-Grade Management: This feature enables teachers to input and manage student grades, as well as generate report cards and progress reports for parents.
-Parent Portal: This feature provides parents with access to their children's academic information, including attendance, grades, and teacher feedback.
-Communication Tools: This feature offers messaging functionality for direct communication between teachers, students, and parents, as well as group messaging for announcements and notifications.
-Resource Management: This feature allows administrators to manage school resources, such as classrooms, labs, and equipment, and track their usage and availability.
-Dashboard and Reporting: This feature provides users with personalized dashboards and generates various reports to help monitor performance and make data-driven decisions.
+- 🔐 OTP-based authentication using **email**
+- 🧑‍🏫 Role-based login and data access
+- ☁️ File uploads via **Multer + Cloudinary**
+- 🧵 Well-structured controller, middleware, and model architecture
+- 🛡️ Secured routes and token-based access control
 
-# API
+---
 
-1 - Post API for student Sigin and Faculty Sigin
+## 📦 Tech Stack
 
-- For Upload File Using Cloudinary, Multer , multer-storage-cloudinary
-- Setting Image Format in cloudinary Like width hight size and many more
-- Created Common Cloudinary and multer file
-- Created Post Api For Faculty Signin Form Same as same Student Signin Api
-- Solved One issue about cloudinary that when field validation is not perfect still image are uploading in cloudinary so make a validation if try catch catches a error then code will return from multer.js
-  -Error When Pushing to vercel
-- if data is not inserted into database because of any error but the image is uploaded so i solved this issue checking from controller if data is inserted into database then cloudinary function work and then upadted the student_profile cloudinary url into the field in the database
-- after fighting all this error now i just make a login api so student or faculty ke easily login to the portal i have just make like first user have type their phone number or email id
-  then he/she get otp code into email i also tried to get otp via sms with the help of twilio but unfortunately it doesn't work for unpaid so i decided to stick with email its doesn't matter user entering email or phone number otp will to their email only sending email functionality i used nodemailer it very famous easy to use.
-- "solving nodmailer error not sending mail on vercel" this commit now the issue is solved now on deployment phase otp mail is coming now proper i just want add await before
-  await senderService(user, otp, otpExpiry); without await code goes to second line that why mail is not coming properly
+| Layer         | Technologies                                  |
+|---------------|-----------------------------------------------|
+| Server        | Node.js, Express.js                           |
+| DB            | MongoDB Atlas                                 |
+| Auth          | JWT, Nodemailer (OTP via email)               |
+| File Upload   | Multer, Cloudinary, multer-storage-cloudinary |
+| Env Mgmt      | dotenv                                        |
+| Deployment    | Vercel                                        |
 
-2 - Post API for login user as per their role
+---
 
-- when user enter his number or mail they got otp in his own mail only
-- also created one token checking api for after login to ensure that login credetial that user enter is correct and that matched to the token part
-- one api for getting single user with the help of token in token have id that id will help to find the user from the faculty or student database
-- and the last i created logout api for clear all the token from backend and also frontend cookies
+## 🔑 Core Features
 
-2 - patch API for Updated
+### ✅ Authentication System
+- OTP-based login (email/phone input, OTP sent via email)
+- Role-based access (Admin, Faculty, Student, Parent)
+- Secure token generation and validation (JWT)
+- Logout with token + cookie clearance
 
-- for this i have created to api one for all the field to updated and for specially image updated wheen the user click on choose file and after thet select which dp want to set after they dont want to do anything its automatically loading in 2 3 sec dp will be display on the frontend and also saved into the database during this process cloudinary function will automatically delete old image and put a new image
+### 👤 User Registration (POST APIs)
+- Register students & faculty with profile image upload
+- Common cloudinary+multer handler for image upload
+- DB record only created after validations are passed
+- Cloudinary cleanup handled if DB insert fails
+
+### 🖼️ Image Upload Handling
+- Automatic validation: if DB insert fails, image upload is aborted
+- Old image deleted from Cloudinary before new one is uploaded
+- Image format, size, and dimensions managed via cloudinary config
+
+### 🔁 Update (PATCH APIs)
+- Update entire profile OR just profile image
+- Auto-save new image and remove old one from Cloudinary
+- Profile updates reflected in frontend after ~2-3 seconds
+
+### 🧪 Token-Based Verification APIs
+- Verify token to confirm login session
+- Get logged-in user’s data (student/faculty) via token ID
+- Logout by clearing backend cookies and invalidating tokens
+
+---
+
+## 🌐 API Overview
+
+| Method | Endpoint                        | Description                          |
+|--------|----------------------------------|--------------------------------------|
+| POST   | `/api/student/signup`           | Register a new student               |
+| POST   | `/api/faculty/signup`           | Register a new faculty               |
+| POST   | `/api/auth/login`               | OTP-based login for any role         |
+| POST   | `/api/auth/verify-token`        | Check token validity                 |
+| GET    | `/api/user/profile`             | Get user data using JWT token        |
+| PATCH  | `/api/user/update`              | Update profile info                  |
+| PATCH  | `/api/user/update-image`        | Upload new image and delete old      |
+| GET    | `/api/auth/logout`              | Logout user and clear cookies        |
+
+---
+
+## 🐞 Error Handling & Challenges Solved
+
+- ✅ Cloudinary image cleanup on failed DB validation
+- ✅ Fixed nodemailer issue on Vercel (added missing `await`)
+- ✅ JWT + cookie sync between frontend/backend
+- ✅ Secure error response + status codes via try/catch
+
+---
+
+## 🚀 How to Run Locally
+
+```bash
+git clone https://github.com/your-username/schoolcool-backend.git
+cd schoolcool-backend
+npm install
+```
+
+### Configure Environment
+
+Create a `.env` file and add the following:
+```
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_password_or_app_key
+```
+
+### Run the Server
+```bash
+npm run dev
+```
+
+Server will start on: `http://localhost:5000`
+
+---
+
+## 📌 Deployment Notes
+
+- Make sure to add all env variables on **Vercel** for deployment
+- Backend configured to work seamlessly with frontend hosted on Vercel
+
+---
+
+## 👨‍💻 Author
+
+Created by **Faizan Shaikh**  
+MERN Stack Developer | Backend Specialist | Cloudinary Ninja
+
+---
+
