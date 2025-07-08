@@ -36,10 +36,6 @@ export const userUpdate = async (req, res, next) => {
     ]);
     console.log("handleTwo", handleTwo);
     const findUser = faculty || student || admin;
-<<<<<<< HEAD
-
-=======
->>>>>>> ee20ed4c3384e7bfabbeeded60e8ef2020a81491
     console.log("findUser", findUser);
     const updatedField = req.body;
     const storeUpdatedfield = {};
